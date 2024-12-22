@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 const useSpotifyAuth = () => {
   const [token, setToken] = useState(null);
 
-  useEffect(() => {
+ // in useSpotifyAuth.js
+useEffect(() => {
     const hash = window.location.hash;
-    let token = null;
-
     if (hash) {
-      token = new URLSearchParams(hash.substring(1)).get("access_token");
-      window.location.hash = ""; // Clear the hash
+      const token = new URLSearchParams(hash.substring(1)).get("access_token");
       if (token) {
+        console.log("Token found:", token.substring(0, 5) + "..."); // Debug log
+        localStorage.setItem("spotifyToken", token); // Make sure this line exists
         setToken(token);
-        localStorage.setItem("spotifyToken", token); // Optional: store token
+        window.location.hash = "";
       }
     }
   }, []);

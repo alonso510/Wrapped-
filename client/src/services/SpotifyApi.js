@@ -131,3 +131,11 @@ export const getYearlyTopTracks = async (limit = 50) => {
     throw error;
   }
 };
+export const getArtistDetails = async (artistId) => {
+  const token = localStorage.getItem('spotifyToken');
+  if (!token) {
+    throw new Error("No access token");
+  }
+  spotifyApi.setAccessToken(token);
+  return spotifyApi.getArtist(artistId);
+};

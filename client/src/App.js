@@ -9,6 +9,7 @@ import ListeningTimeAnalysis from "./components/ListeningTimeAnalysis";
 import GenreDiversity from "./components/GenreDiversity";
 import ArtistTimeline from "./components/ArtistTimeline";
 import SongRepetitionPatterns from "./components/SongRepetitionPatterns";
+import HiddenGems from "./components/HiddenGems";
 
 function App() {
   const token = useSpotifyAuth();
@@ -141,6 +142,14 @@ function App() {
         >
           <div className="section-content">
             <SongRepetitionPatterns />
+          </div>
+        </section>
+        <section
+          className="section section-6"
+          ref={(el) => (sectionsRef.current[5] = el)}
+        >
+          <div className="section-content">
+            <HiddenGems />
           </div>
         </section>
       </div>

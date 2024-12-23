@@ -7,6 +7,7 @@ import "./App.css";
 import { useSpotifyData } from "./hooks/useSpotifyData";
 import ListeningTimeAnalysis from "./components/ListeningTimeAnalysis";
 import GenreDiversity from "./components/GenreDiversity";
+import ArtistTimeline from "./components/ArtistTimeline";
 
 function App() {
   const token = useSpotifyAuth();
@@ -123,6 +124,14 @@ function App() {
               topArtists
             )}
             <GenreDiversity topArtists={topArtists} />
+          </div>
+        </section>
+        <section
+          className="section section-4"
+          ref={(el) => (sectionsRef.current[3] = el)}
+        >
+          <div className="section-content">
+            <ArtistTimeline topArtists={topArtists} />
           </div>
         </section>
       </div>

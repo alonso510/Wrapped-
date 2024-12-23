@@ -14,16 +14,22 @@ console.log('SPOTIFY_REDIRECT_URI:', process.env.SPOTIFY_REDIRECT_URI ? 'Present
 
 // Step 1: Redirect user to Spotify login
 router.get("/login", (req, res) => {
-    const scopes = [
-        "user-read-private",
-        "user-read-email",
-        "user-read-recently-played",
-        "user-read-playback-state",
-        "user-read-currently-playing",
-        "user-top-read",
-        "playlist-read-private",
-        "streaming"
-    ];
+  const scopes = [
+    "user-read-private",
+    "user-read-email",
+    "user-read-recently-played",
+    "user-read-playback-state",
+    "user-read-currently-playing",
+    "user-top-read",         // Make sure this is here
+    "playlist-read-private",
+    "streaming",
+    "user-read-email",
+    "user-read-recently-played",
+    "user-read-playback-state",
+    "user-read-currently-playing",
+    "playlist-read-private",
+    
+];
   // Construct the auth URL with proper environment variables
   const authUrl = `https://accounts.spotify.com/authorize?` + 
     `client_id=${process.env.SPOTIFY_CLIENT_ID}` +

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import * as SpotifyApi from '../services/SpotifyApi';
+import { useState, useEffect } from "react";
+import * as SpotifyApi from "../services/SpotifyApi";
 
 export const useSpotifyData = () => {
   const [recentlyPlayed, setRecentlyPlayed] = useState(null);
@@ -30,7 +30,7 @@ export const useSpotifyData = () => {
 
         setLoading(false);
       } catch (err) {
-        console.error('Error in data fetching:', err);
+        console.error("Error in data fetching:", err);
         setError(err);
         setLoading(false);
       }

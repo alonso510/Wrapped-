@@ -30,7 +30,7 @@ export const getUserProfile = async () => {
   return spotifyApi.getMe();
 };
 
-export const getTopTracks = async (timeRange = 'medium_term', limit = 50) => {
+export const getTopTracks = async (timeRange = 'long_term', limit = 50) => {
   const token = localStorage.getItem('spotifyToken');
   if (token) {
     spotifyApi.setAccessToken(token);
@@ -38,12 +38,16 @@ export const getTopTracks = async (timeRange = 'medium_term', limit = 50) => {
   return spotifyApi.getMyTopTracks({ time_range: timeRange, limit });
 };
 
-export const getTopArtists = async (timeRange = 'medium_term', limit = 50) => {
+export const getTopArtists = async (timeRange = 'long_term', limit = 50) => {
   const token = localStorage.getItem('spotifyToken');
+  console.log("Token for top artists:", token ? "exists" : "missing");
   if (token) {
     spotifyApi.setAccessToken(token);
   }
-  return spotifyApi.getMyTopArtists({ time_range: timeRange, limit });
+  console.log("About to call getMyTopArtists with params:", { timeRange, limit });
+  const result = await spotifyApi.getMyTopArtists({ time_range: timeRange, limit });
+  console.log("getTopArtists result:", result);
+  return result;
 };
 
 export const getAudioFeatures = async (trackIds) => {

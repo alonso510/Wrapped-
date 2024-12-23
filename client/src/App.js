@@ -3,15 +3,23 @@ import { setAccessToken, getUserProfile } from "./services/SpotifyApi";
 import useSpotifyAuth from "./hooks/useSpotifyAuth";
 import { loginUrl } from "./services/SpotifyAuth";
 import NavBar from "./components/NavBar";
-import './App.css';
-import { useSpotifyData } from './hooks/useSpotifyData';
-import ListeningTimeAnalysis from './components/ListeningTimeAnalysis';
+import "./App.css";
+import { useSpotifyData } from "./hooks/useSpotifyData";
+import ListeningTimeAnalysis from "./components/ListeningTimeAnalysis";
+import GenreDiversity from "./components/GenreDiversity";
 
 function App() {
   const token = useSpotifyAuth();
   const [user, setUser] = useState(null);
   const sectionsRef = useRef([]);
-  const { recentlyPlayed, topTracks, topArtists, audioFeatures, loading, error } = useSpotifyData();
+  const {
+    recentlyPlayed,
+    topTracks,
+    topArtists,
+    audioFeatures,
+    loading,
+    error,
+  } = useSpotifyData();
 
   useEffect(() => {
     if (token) {
@@ -27,19 +35,21 @@ function App() {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.3
+      rootMargin: "0px",
+      threshold: 0.3,
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.querySelector('.section-content').classList.add('visible');
+          entry.target
+            .querySelector(".section-content")
+            .classList.add("visible");
         }
       });
     }, observerOptions);
 
-    sectionsRef.current.forEach(section => {
+    sectionsRef.current.forEach((section) => {
       if (section) observer.observe(section);
     });
 
@@ -66,7 +76,12 @@ function App() {
       </div>
     );
   }
-  console.log("App Data:", { recentlyPlayed, topTracks, topArtists, audioFeatures });
+  console.log("App Data:", {
+    recentlyPlayed,
+    topTracks,
+    topArtists,
+    audioFeatures,
+  });
   console.log("App render - recentlyPlayed data:", recentlyPlayed);
   // Main content render
   return (
@@ -103,7 +118,11 @@ function App() {
         >
           <div className="section-content">
             <h2>Genre Diversity</h2>
-            {/* We'll add genre analytics here */}
+            {console.log(
+              "Rendering GenreDiversity with topArtists:",
+              topArtists
+            )}
+            <GenreDiversity topArtists={topArtists} />
           </div>
         </section>
       </div>

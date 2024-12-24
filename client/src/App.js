@@ -11,6 +11,8 @@ import ArtistTimeline from "./components/ArtistTimeline";
 import SongRepetitionPatterns from "./components/SongRepetitionPatterns";
 import HiddenGems from "./components/HiddenGems";
 import MusicEvolution from "./components/MusicEvolution";
+import MusicPersonality from "./components/MusicPersonality";
+import ListeningComparison from "./components/ListeningComparison";
 
 function App() {
   const token = useSpotifyAuth();
@@ -22,7 +24,6 @@ function App() {
     topArtists,
     audioFeatures,
     loading,
-    error,
   } = useSpotifyData();
 
   useEffect(() => {
@@ -159,6 +160,22 @@ function App() {
         >
           <div className="section-content">
             <MusicEvolution />
+          </div>
+        </section>
+        <section
+          className="section section-9"
+          ref={(el) => (sectionsRef.current[8] = el)}
+        >
+          <div className="section-content">
+            <MusicPersonality />
+          </div>
+        </section>
+        <section
+          className="section section-10"
+          ref={(el) => (sectionsRef.current[9] = el)}
+        >
+          <div className="section-content">
+            <ListeningComparison />
           </div>
         </section>
       </div>

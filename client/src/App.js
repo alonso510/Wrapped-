@@ -14,17 +14,14 @@ import MusicEvolution from "./components/MusicEvolution";
 import MusicPersonality from "./components/MusicPersonality";
 import ListeningComparison from "./components/ListeningComparison";
 
+import FestivalLineup from "./components/FestivalLineup";
+
 function App() {
   const token = useSpotifyAuth();
   const [user, setUser] = useState(null);
   const sectionsRef = useRef([]);
-  const {
-    recentlyPlayed,
-    topTracks,
-    topArtists,
-    audioFeatures,
-    loading,
-  } = useSpotifyData();
+  const { recentlyPlayed, topTracks, topArtists, audioFeatures, loading } =
+    useSpotifyData();
 
   useEffect(() => {
     if (token) {
@@ -176,6 +173,14 @@ function App() {
         >
           <div className="section-content">
             <ListeningComparison />
+          </div>
+        </section>
+        <section
+          className="section section-11"
+          ref={(el) => (sectionsRef.current[10] = el)}
+        >
+          <div className="section-content">
+            <FestivalLineup />
           </div>
         </section>
       </div>

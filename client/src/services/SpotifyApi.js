@@ -139,3 +139,38 @@ export const getArtistDetails = async (artistId) => {
   spotifyApi.setAccessToken(token);
   return spotifyApi.getArtist(artistId);
 };
+export const getRecommendedArtists = async (artistId) => {
+  const token = localStorage.getItem('spotifyToken');
+  if (!token) throw new Error("No access token");
+  
+  spotifyApi.setAccessToken(token);
+  
+  try {
+    console.log("Getting top tracks for artist:", artistId);
+    // Get artist's top tracks first
+    const topTracks = await spotifyApi.getArtistTopTracks(artistId, 'US');
+    
+    if (!topTracks.tracks.length) {
+      throw new Error("No top tracks found for artist");
+    }
+
+    console.log("Got top tracks, getting recommendations");
+    // Use these tracks to get recommendations
+    const recommendations = await spotifyApi.getRecommendations({
+      seed_tracks: [topTracks.tracks[0].id],
+      min_popularity: 50,
+      limit: 6
+    });
+
+    // Get full artist details
+    const artistIds = [...new Set(recommendations.tracks.map(track => track.artists[0].id))];
+    console.log("Getting full details for artists:", artistIds);
+    const artistDetails = await spotifyApi.getArtists(artistIds);
+
+    console.log("Got recommendations:", artistDetails);
+    return artistDetails;
+  } catch (error) {
+    console.error("Spotify API error:", error);
+    return { artists: [] };
+  }
+};

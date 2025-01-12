@@ -1,9 +1,5 @@
 🎵 Spotify Wrapped Plus+
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
+
 A sophisticated Spotify analytics dashboard that provides deep insights into your music listening habits. Built with React.js and Node.js, this application leverages the Spotify Web API to analyze user listening patterns and presents the data through an engaging, interactive interface.
 ✨ Features
 

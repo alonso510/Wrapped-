@@ -155,5 +155,5 @@ Project Link: [https://github.com/alonso510/Wrapped-/tree/master](https://github
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/yourusername">Alonso</a>
+  Made with ❤️ by <a href="https://github.com/yourusername">alonso510</a>
 </p>

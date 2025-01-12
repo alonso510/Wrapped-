@@ -148,12 +148,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📫 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourusername) - email@example.com
+Alonso Nunez - [@yourtwitter](https://twitter.com/yourusername) - email@example.com
 
-Project Link: [https://github.com/yourusername/spotify-wrapped-plus](https://github.com/yourusername/spotify-wrapped-plus)
+Project Link: [https://github.com/alonso510/Wrapped-/tree/master](https://github.com/alonso510/Wrapped-/tree/master)
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/yourusername">Your Name</a>
+  Made with ❤️ by <a href="https://github.com/yourusername">Alonso</a>
 </p>

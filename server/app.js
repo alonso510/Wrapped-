@@ -18,7 +18,7 @@ const app = express();
 // Configure CORS based on environment
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? process.env.FRONTEND_URL || 'https://your-app-name.herokuapp.com'
+    ? process.env.FRONTEND_URL || 'https://wrappedplus-3b79de03b658.herokuapp.com'
     : 'http://localhost:3000',
   methods: ['GET', 'POST'],
   credentials: true

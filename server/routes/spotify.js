@@ -20,7 +20,7 @@ router.get("/login", (req, res) => {
     "user-read-recently-played",
     "user-read-playback-state",
     "user-read-currently-playing",
-    "user-top-read",         // Make sure this is here
+    "user-top-read",         
     "playlist-read-private",
     "streaming",
     "user-read-email",
@@ -28,8 +28,8 @@ router.get("/login", (req, res) => {
     "user-read-playback-state",
     "user-read-currently-playing",
     "playlist-read-private",
-    
-];
+  ];
+
   // Construct the auth URL with proper environment variables
   const authUrl = `https://accounts.spotify.com/authorize?` + 
     `client_id=${process.env.SPOTIFY_CLIENT_ID}` +
@@ -64,8 +64,12 @@ router.get("/callback", async (req, res) => {
       }
     );
 
+    // Determine the appropriate redirect URL based on environment
+    const redirectUrl = process.env.NODE_ENV === 'production'
+      ? `https://wrappedplus-3b79de03b658.herokuapp.com/#access_token=${response.data.access_token}`
+      : `http://localhost:3000/#access_token=${response.data.access_token}`;
+
     // After successful token exchange, redirect to frontend with token
-    const redirectUrl = `http://localhost:3000/#access_token=${response.data.access_token}`;
     res.redirect(redirectUrl);
     
   } catch (error) {

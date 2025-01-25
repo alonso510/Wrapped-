@@ -148,7 +148,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📫 Contact
 
-Alonso Nunez - [@yourtwitter](https://twitter.com/yourusername) - alonso510@proton.me
+Alonso Nunez -  alonso510@proton.me
 
 Project Link: [https://github.com/alonso510/Wrapped-/tree/master](https://github.com/alonso510/Wrapped-/tree/master)
 

@@ -6,11 +6,11 @@ const dotenv = require('dotenv');
 // Ensure environment variables are loaded
 dotenv.config();
 
-// Log environment variables on startup (remove in production)
-console.log('Environment variables check:');
-console.log('SPOTIFY_CLIENT_ID:', process.env.SPOTIFY_CLIENT_ID ? 'Present' : 'Missing');
-console.log('SPOTIFY_CLIENT_SECRET:', process.env.SPOTIFY_CLIENT_SECRET ? 'Present' : 'Missing');
-console.log('SPOTIFY_REDIRECT_URI:', process.env.SPOTIFY_REDIRECT_URI ? 'Present' : 'Missing');
+// Enhanced logging
+console.log('Environment variables check with full values:');
+console.log('SPOTIFY_CLIENT_ID:', process.env.SPOTIFY_CLIENT_ID);
+console.log('SPOTIFY_REDIRECT_URI:', process.env.SPOTIFY_REDIRECT_URI);
+console.log('Current Environment:', process.env.NODE_ENV);
 
 // Step 1: Redirect user to Spotify login
 router.get("/login", (req, res) => {
@@ -20,34 +20,38 @@ router.get("/login", (req, res) => {
     "user-read-recently-played",
     "user-read-playback-state",
     "user-read-currently-playing",
-    "user-top-read",         // Make sure this is here
+    "user-top-read",
     "playlist-read-private",
-    "streaming",
-    "user-read-email",
-    "user-read-recently-played",
-    "user-read-playback-state",
-    "user-read-currently-playing",
-    "playlist-read-private",
-    
-];
-  // Construct the auth URL with proper environment variables
+    "streaming"
+  ];
+
+  // Remove duplicate scopes and log the final scope list
+  const uniqueScopes = [...new Set(scopes)];
+  console.log('Using scopes:', uniqueScopes);
+
+  // Construct and log the exact redirect URI being used
+  const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
+  console.log('Using redirect URI:', redirectUri);
+  
   const authUrl = `https://accounts.spotify.com/authorize?` + 
     `client_id=${process.env.SPOTIFY_CLIENT_ID}` +
     `&response_type=code` +
-    `&redirect_uri=${encodeURIComponent(process.env.SPOTIFY_REDIRECT_URI)}` +
-    `&scope=${encodeURIComponent(scopes.join(" "))}`;
+    `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+    `&scope=${encodeURIComponent(uniqueScopes.join(" "))}`;
 
-  // Log the constructed URL (remove in production)
-  console.log('Redirecting to:', authUrl);
+  console.log('Full auth URL:', authUrl);
   
   res.redirect(authUrl);
 });
 
 // Step 2: Handle the callback from Spotify
 router.get("/callback", async (req, res) => {
+  console.log('Received callback with code:', req.query.code ? 'Present' : 'Missing');
   const code = req.query.code;
 
   try {
+    console.log('Attempting token exchange with redirect URI:', process.env.SPOTIFY_REDIRECT_URI);
+    
     const response = await axios.post(
       "https://accounts.spotify.com/api/token",
       new URLSearchParams({
@@ -64,12 +68,16 @@ router.get("/callback", async (req, res) => {
       }
     );
 
-    // After successful token exchange, redirect to frontend with token
+    console.log('Token exchange successful');
     const redirectUrl = `http://localhost:3000/#access_token=${response.data.access_token}`;
     res.redirect(redirectUrl);
     
   } catch (error) {
-    console.error("Error exchanging code for tokens:", error.response?.data || error.message);
+    console.error("Detailed error information:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status
+    });
     res.status(500).send("Authentication failed.");
   }
 });

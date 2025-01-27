@@ -1,0 +1,22 @@
+{
+    "name": "spotify-wrapped-plus",
+    "version": "1.0.0",
+    "description": "Spotify Wrapped Plus Application",
+    "main": "server/app.js",
+    "scripts": {
+      "start": "node server/app.js",
+      "heroku-postbuild": "cd client && npm install && npm run build && cd ../server && npm install",
+      "dev": "concurrently \"cd server && npm start\" \"cd client && npm start\""
+    },
+    "engines": {
+      "node": "16.x"
+    },
+    "cacheDirectories": [
+      "node_modules",
+      "client/node_modules",
+      "server/node_modules"
+    ],
+    "dependencies": {
+      "concurrently": "^8.0.1"
+    }
+  }
